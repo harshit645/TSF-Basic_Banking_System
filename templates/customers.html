@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}View Customers{% endblock %}
+
+{% block linkshead %}
+<link rel="stylesheet" href="{% static 'css/stylecustomers.css' %}">
+{% endblock %}
+
+{% block nav_item_cust %}active{% endblock nav_item_cust %}
+
+{% block body %}
+<section class="headingcustomer container-fluid">
+  <div class="my-5">
+    <h3 class="text-uppercase text-center">List Of Customers</h3>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover text-center table-striped table-bordered" id="tbval">
+
+      <tr class="table-dark">
+        <!-- <th class="text-capitalize" style="padding: 10px;" scope="col">id</th> -->
+        <th class="text-capitalize" style="padding: 10px;" scope="col">Name</th>
+        <th class="text-capitalize" style="padding: 10px;" scope="col">Email</th>
+        <th class="text-capitalize" style="padding: 10px;" scope="col">Current Balance</th>
+      </tr>
+
+      {% for customer in customers %}
+      <tr>
+        <!-- <th scope="row" style="padding: 15px;">{{customer.id}}</th> -->
+        <td style="padding: 15px;">{{customer.name}}</td>
+        <td style="padding: 15px;">{{customer.email}}</td>
+        <td style="padding: 15px;">{{customer.balance}}</td>
+      </tr>
+      {% endfor %}
+      
+      
+    </table>
+
+
+  </div>
+
+</section>
+
+{% endblock %}

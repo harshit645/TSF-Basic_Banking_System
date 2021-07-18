@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Transfer Now{% endblock %}
+
+{% block linkshead %}
+<link rel="stylesheet" href="{% static 'css/transfernow.css' %}">
+{% endblock %}
+
+
+{% block body %}
+<section class="headingtransfer container-fluid">
+    <div class="mt-5 mb-4">
+        <h3 class="text-uppercase text-center">Customer Details</h3>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover text-center table-striped table-bordered" id="tbval">
+
+            <tr class="table-success">
+                <th class="text-capitalize" style="padding: 10px;" scope="col">id</th>
+                <th class="text-capitalize" style="padding: 10px;" scope="col">Name</th>
+                <th class="text-capitalize" style="padding: 10px;" scope="col">Email</th>
+                <th class="text-capitalize" style="padding: 10px;" scope="col">Current Balance</th>
+            </tr>
+
+
+            {% for transaction in transact %}
+            <tr>
+                <th scope="row" style="padding: 15px;">{{transaction.id}}</th>
+                <td style="padding: 15px;">{{transaction.name}}</td>
+                <td style="padding: 15px;">{{transaction.email}}</td>
+                <td style="padding: 15px;">{{transaction.balance}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+
+    </div>
+
+</section>
+
+<div class="my-5">
+    <h2 class="text-uppercase text-center heading2">Make a Transaction</h2>
+</div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show text-center" role="alert">
+    <strong>Message : </strong>{{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endfor %}
+{% endif %}
+
+<div class="container custom-bg">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-6">
+            <img class="img-fluid" src="{% static 'images/bank.png' %}" alt="bank">
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-12">
+            <form method="post" onsubmit="return check()">
+                {% csrf_token %}
+
+                <div class="row align-items-center mt-4">
+
+                    <label class="col-sm-3 col-form-label" for="from">FROM : </label>
+                    <div class="col-sm-9">
+                        {% for transaction in transact %}
+                        <input type="text" id="from" name="from" value="{{transaction.name}}" class="form-control"
+                            required autocomplete="off" readonly>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="row align-items-center mt-4">
+
+                    <label class="col-sm-3 col-form-label" for="to">TO : </label>
+                    <div class="col-sm-9">
+
+                        <select style="height: auto;" class="form-select form-select-md mb-2"
+                            aria-label=".form-select-md example" id="to" name="to" required>
+                            {% for customer in customers %}
+                            <option value="{{customer.name}}">{{customer.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row align-items-center mt-4">
+
+                    <label class="col-sm-3 col-form-label" for="amount">Amount : </label>
+                    <div class="col-sm-9">
+                        <input type="number" id="amount" name="amount" min="100" class="form-control" required
+                            autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="row align-items-center my-5">
+
+                    <div class="col-2">
+
+                    </div>
+                    <button style="width: auto;" type="submit"
+                        class="btn btn-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+
+                    <div class="col-2">
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-12"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+    function check() {
+        var transferfrom = document.getElementById('from').value;
+        var transferto = document.getElementById('to').value;
+
+        if (transferfrom == transferto) {
+            alert('Self Transaction is not allowed in Sparks Bank,Please select another customer to transfer money');
+            return false;
+        }
+
+        else {
+            return true;
+        }
+
+    }
+</script>
+
+{% endblock %}
