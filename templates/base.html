@@ -13,6 +13,8 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
   {% block linkshead %} {% endblock %}
@@ -161,9 +163,17 @@
     <!-- Footer -->
   </div>
   <!-- End of .container -->
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+     AOS.init();
+   </script>
+   
   <script src="{% static 'js/script.js' %}"></script>
 
   {% block script %} {% endblock %}
+
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
