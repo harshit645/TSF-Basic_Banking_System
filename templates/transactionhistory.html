@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Transaction History{% endblock %}
+
+{% block linkshead %}
+<link rel="stylesheet" href="{% static 'css/stylehistory.css' %}">
+{% endblock %}
+
+{% block nav_item_history %}active{% endblock nav_item_history %}
+
+{% block body %}
+<section class="headinghistory container-fluid">
+    <div class="my-5">
+      <h3 class="text-uppercase text-center" data-aos="zoom-in-down" data-aos-delay="300" data-aos-duration="1500">Transaction History</h3>
+    </div>
+  
+    <div class="table-responsive">
+      <table class="table table-hover text-center table-striped table-bordered" id="tbval">
+  
+        <tr class="table-dark">
+          <th class="text-capitalize" style="padding: 10px;" scope="col">Sender Name</th>
+          <th class="text-capitalize" style="padding: 10px;" scope="col">Receiver Name</th>
+          <th class="text-capitalize" style="padding: 10px;" scope="col">Amount</th>
+          <th class="text-capitalize" style="padding: 10px;" scope="col">Date and Time</th>
+        </tr>
+  
+        {% for transaction in transactiondetail %}
+      <tr>
+        <th style="padding: 15px;">{{transaction.senderName}}</th>
+        <td style="padding: 15px;">{{transaction.receiverName}}</td>
+        <td style="padding: 15px;">{{transaction.amount}}</td>
+        <td style="padding: 15px;">{{transaction.timings}}</td>
+      </tr>
+      {% endfor %}
+        
+        
+      </table>
+  
+  
+    </div>
+  
+  </section>
+{% endblock %}
